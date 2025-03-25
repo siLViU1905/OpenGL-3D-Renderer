@@ -20,8 +20,6 @@ std::string doubleToString(double value, int precision)
 int main()
 {
     Window window(1080, 720,"Scene");
-    std::string t ="Scene";
-    
 
     window.setClearColor({0.529f, 0.808f, 0.922f});
 
@@ -40,10 +38,7 @@ int main()
 
     srand(time(0));
     float gridSize = 10.f;
-
-    Clock clock, mClock;
-    ProcessMonitor monitor;
-
+   
     Texture texture;
     if (!texture.load("polo.png"))
         return -1;
@@ -55,7 +50,6 @@ int main()
     cube.setColor(Color::White);
 
       
-    bool buttonPressed = false;
     Event event;
     while (window.isOpen())
     {
@@ -78,7 +72,6 @@ int main()
                 }
         }
 
-        //applyGravity(cubes, gravity, clock.restart().asSeconds(), 0.2f);
  
         cube.rotate({70.f},{0.f},{70.f});
 
@@ -120,20 +113,7 @@ int main()
       
         window.display();
 
-        double cpuUsage = monitor.getProcessCpuUsage();
-        double ramUsage = monitor.getProcessMemoryUsage();
-
-        if (mClock.elapsedTime().asMilliseconds() >= 500)
-        {
-            mClock.restart();
-            t += " | CPU: ";
-            t += doubleToString(cpuUsage, 2);
-            t += " RAM: ";
-            t += doubleToString(ramUsage, 2);
-            glfwSetWindowTitle(window.getWindow(), t.c_str());
-            t.clear();
-            t ="Scene";
-        }
+    
     }
 
     return 0;
