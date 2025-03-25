@@ -15,8 +15,8 @@
                 "${workspaceFolder}/include/self/Objects/Objects.cpp",
                 "${workspaceFolder}/include/self/Objects/vec3.cpp",
                 "${workspaceFolder}/include/self/Objects/Angle.cpp",
-                "${workspaceFolder}/include/self/Time/Time.cpp",
-                "${workspaceFolder}/include/self/Time/Clock.cpp",
+                //"${workspaceFolder}/include/self/Time/Time.cpp",
+               // "${workspaceFolder}/include/self/Time/Clock.cpp",
                 "${workspaceFolder}/include/self/Camera/Camera.cpp",
                 "${workspaceFolder}/include/self/Objects/Color.cpp",
                 "${workspaceFolder}/include/self/Window/Window.cpp",
@@ -37,6 +37,7 @@
                 "-lalsoft.excommon",
                 "-lOpenAL32",
                 "-lsndfile",
+                "-ltime",
                 "-o",
                 "${workspaceFolder}/src/output/main.exe"
             ],

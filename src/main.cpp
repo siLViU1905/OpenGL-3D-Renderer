@@ -22,6 +22,7 @@ int main()
     Window window(1080, 720,"Scene");
     std::string t ="Scene";
     
+
     window.setClearColor({0.529f, 0.808f, 0.922f});
 
     window.setWindowIconImage("polo.png");
