@@ -1,0 +1,72 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe build active file",
+            "command": "C:/msys64/ucrt64/bin/g++.exe",
+            "args": [
+                "-g",
+                "-std=c++26",
+                "-I${workspaceFolder}/include",
+                
+                "-L${workspaceFolder}/lib",
+                "${workspaceFolder}/src/main.cpp",
+                "${workspaceFolder}/include/self/Objects/Objects.cpp",
+                "${workspaceFolder}/include/self/Objects/vec3.cpp",
+                "${workspaceFolder}/include/self/Objects/Angle.cpp",
+                "${workspaceFolder}/include/self/Time/Time.cpp",
+                "${workspaceFolder}/include/self/Time/Clock.cpp",
+                "${workspaceFolder}/include/self/Camera/Camera.cpp",
+                "${workspaceFolder}/include/self/Objects/Color.cpp",
+                "${workspaceFolder}/include/self/Window/Window.cpp",
+                "${workspaceFolder}/include/self/Window/Event.cpp",
+                "${workspaceFolder}/include/self/Window/Keyboard.cpp",
+                "${workspaceFolder}/include/self/Window/Mouse.cpp",
+                "${workspaceFolder}/include/self/Window/Monitor.cpp",
+                "${workspaceFolder}/include/self/Sounds/Sound.cpp",
+                "${workspaceFolder}/include/self/Shaders/Shader.cpp",
+                "${workspaceFolder}/include/self/Shaders/Texture.cpp",
+                "-lglew32",
+                "-lglfw3dll",
+                "-lopengl32",
+                "-lglu32",
+                "-lwinmm",
+                "-lpsapi",
+                "-lalsoft.common",
+                "-lalsoft.excommon",
+                "-lOpenAL32",
+                "-lsndfile",
+                "-o",
+                "${workspaceFolder}/src/output/main.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "compiler: C:/msys64/ucrt64/bin/g++.exe"
+        },
+        {
+            "label": "Run OpenGL Program",
+            "type": "shell",
+            "command": "${workspaceFolder}/src/output/main.exe",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "dependsOn": [
+                "C/C++: g++.exe build active file"
+            ]
+        }
+    ]
+}

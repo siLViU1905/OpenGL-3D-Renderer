@@ -1,0 +1,12 @@
+#ifndef __SGL_H__
+#define __SGL_H__
+
+#include "Window/Window.h"
+#include "Time/Clock.h"
+#include "Shaders/Shader.h"
+#include "Shaders/Texture.h"
+#include "Window/Monitor.h"
+#include "Sounds/Sound.h"
+#include "Camera/Camera.h"
+
+#endif // __SGL_H__
