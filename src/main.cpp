@@ -3,6 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <sstream>
+#include <self/Shaders/stb_image.h>
 void applyGravity(std::vector<Cube> &cubes, float gravity, float deltaTime, float y_limit)
 {
     for (auto &object : cubes)
@@ -39,9 +40,8 @@ int main()
     srand(time(0));
     float gridSize = 10.f;
    
-    Texture texture;
-    if (!texture.load("polo.png"))
-        return -1;
+   Texture texture;
+   texture.load("polo.png");
 
     Cube cube;
     cube.setOrigin({0.f, 5.f, 0.f});
@@ -49,7 +49,7 @@ int main()
     cube.setTexture(&texture);
     cube.setColor(Color::White);
 
-      
+
     Event event;
     while (window.isOpen())
     {
@@ -115,6 +115,5 @@ int main()
 
     
     }
-
     return 0;
 }
