@@ -3,20 +3,6 @@
 #include <vector>
 #include <cmath>
 #include <sstream>
-#include <self/Shaders/stb_image.h>
-void applyGravity(std::vector<Cube> &cubes, float gravity, float deltaTime, float y_limit)
-{
-    for (auto &object : cubes)
-        if (object.getPosition().y + object.getPosition().y > y_limit)
-            object.move({0.f, -gravity * deltaTime, 0.f});
-}
-
-std::string doubleToString(double value, int precision)
-{
-    std::stringstream stream;
-    stream << std::fixed << std::setprecision(precision) << value;
-    return stream.str();
-}
 
 int main()
 {
