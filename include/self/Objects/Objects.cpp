@@ -292,15 +292,15 @@ void Cone::render() const
     }
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
-    glTexCoord2f(0.5f, 0.5f); // Center of the texture for the origin
+    glTexCoord2f(0.5f, 0.5f); 
     glVertex3f(origin.x, origin.y, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
     {
         float xoff = cosf((float)i * DEG_TO_RAD);
         float zoff = sinf((float)i * DEG_TO_RAD);
-        float u = (xoff + 1.0f) * 0.5f; // Mapping x [-1, 1] to u [0, 1]
-        float v = (zoff + 1.0f) * 0.5f; // Mapping z [-1, 1] to v [0, 1]
+        float u = (xoff + 1.0f) * 0.5f; 
+        float v = (zoff + 1.0f) * 0.5f;
         glTexCoord2f(u, v);
         glVertex3f(origin.x + xoff, origin.y, origin.z + zoff);
     }
@@ -309,7 +309,7 @@ void Cone::render() const
 
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
-    glTexCoord2f(0.5f, 0.5f); // Center of the texture for the top
+    glTexCoord2f(0.5f, 0.5f); 
     glVertex3f(origin.x, origin.y + height, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
@@ -445,3 +445,98 @@ float Cylinder::getHeight() const
 {
     return height;
 }
+
+
+Sphere::Sphere():radius(0.f),stacks(30),slices(30)
+{
+    
+}
+
+
+void Sphere::setRadius(float radius)
+{
+    this->radius = radius;
+}
+
+float Sphere::getRadius() const
+{
+    return radius;
+}
+
+void Sphere::setStacks(int stacks)
+{
+    this->stacks = stacks;
+}
+
+void Sphere::setSlices(int slices)
+{
+    this->slices = slices;
+}
+
+void Sphere::render() const
+{
+
+    glPushMatrix();
+
+    glTranslatef(movement.x, movement.y, movement.z);
+
+    glTranslatef(origin.x + radius / 2, origin.y - radius / 2, origin.z - radius / 2);
+
+    glRotatef(rotation.x, 1.f, 0.f, 0.f);
+    glRotatef(rotation.y, 0.f, 1.f, 0.f);
+    glRotatef(rotation.z, 0.f, 0.f, 1.f);
+
+    glTranslatef(-(origin.x + radius / 2), -(origin.y - radius / 2), -(origin.z - radius / 2));
+
+    glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
+    if(texture)
+    {
+        texture->bind(0);
+        glEnable(GL_TEXTURE_2D);
+    }
+
+    for(int i=0;i<stacks;++i)
+    {
+        float lat0 = 3.14f * (-0.5 + (float)(i) / stacks);
+        float z0 = std::sin(lat0);
+        float zr0 = std::cos(lat0);
+
+        float lat1 = 3.14f * (-0.5 + (float)(i + 1) / stacks);
+        float z1 = std::sin(lat1);
+        float zr1 = std::cos(lat1);
+
+        glBegin(GL_QUAD_STRIP);
+        for(int j=0;j<=slices;++j)
+        {
+            float lng = 2 * 3.14f * (float)j / slices;
+            float x = std::cos(lng);
+            float y = std::sin(lng);
+
+            float u = (float)j / slices;
+            float v0 = (float)i / stacks;
+            float v1 = (float)(i + 1) / stacks;
+
+            glTexCoord2f(u, v0);
+
+            glNormal3f(x * zr0, y * zr0, z0);
+            glVertex3f(origin.x + radius * x * zr0, origin.y + radius * y * zr0, origin.z + radius * z0);
+
+            glTexCoord2f(u, v1);
+
+            glNormal3f(x * zr1, y * zr1, z1);
+            glVertex3f(origin.x + radius * x * zr1, origin.y + radius * y * zr1, origin.z + radius * z1);
+        }
+        glEnd();
+    }
+
+    if(texture)
+    {
+        glDisable(GL_TEXTURE_2D);
+        Texture::unbind();
+    }
+
+
+    glPopMatrix();
+}
+
+

@@ -18,8 +18,6 @@ int main()
     camera.setPosition({0.f, 0.f, 5.f});
     camera.setMouseSensivity(0.06f);
 
-    constexpr float gravity = 9.81f * 1.5f;
-
     std::vector<Cube> cubes;
 
 
@@ -96,7 +94,7 @@ int main()
         glEnd();
 
         window.render(cube);
-      
+
         window.display();
 
     

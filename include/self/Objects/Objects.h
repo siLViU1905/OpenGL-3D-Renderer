@@ -146,3 +146,30 @@ public:
  float getTopRadius() const;
  float getHeight() const;
 };
+
+class Sphere:public Object
+{
+   protected:
+   void render() const override;
+   float radius;
+   int stacks;
+   int slices;
+   public:
+   Sphere();
+
+   using Object::getOrigin;
+	using Object::getPosition;
+	using Object::getColor;
+	using Object::getRotation;
+	using Object::rotate;
+	using Object::move;
+	using Object::setOrigin;
+	using Object::setColor;
+	using Object::setTexture;
+
+	   void setRadius(float radius);
+       float getRadius() const;
+
+	   void setStacks(int stacks);
+	   void setSlices(int slices);
+};
