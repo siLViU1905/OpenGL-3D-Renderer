@@ -37,16 +37,18 @@ bool Texture::load(const char *filepath)
     }
     else
     {
-        std::cerr<<stbi_failure_reason()<<'\n';
+        sGLErrors->errorType = ErrorType::TextureError;
+        sGLErrors->textureError += stbi_failure_reason();
+        sGLErrors->textureError.push_back('\n');
         stbi_image_free(data);
         return false;
     }
 }
 
-void Texture::load(unsigned char* pixels,int width,int height)
+void Texture::load(unsigned char *pixels, int width, int height)
 {
-    this->width=width;
-    this->height=height;
+    this->width = width;
+    this->height = height;
     glGenTextures(1, &ID);
     glBindTexture(GL_TEXTURE_2D, ID);
 

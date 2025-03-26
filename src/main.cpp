@@ -6,7 +6,7 @@
 
 int main()
 {
-    Window window(1080, 720,"Scene");
+    Window window(1080, 720, "Scene");
 
     window.setClearColor({0.529f, 0.808f, 0.922f});
 
@@ -14,25 +14,25 @@ int main()
 
     Camera camera(&window);
 
-
     camera.setPosition({0.f, 0.f, 5.f});
     camera.setMouseSensivity(0.06f);
 
     std::vector<Cube> cubes;
 
-
     srand(time(0));
     float gridSize = 10.f;
-   
-   Texture texture;
-   texture.load("polo.png");
+
+    Texture texture;
+    texture.load("polo.png");
+
+    if (!sGLErrors->good())
+        return -1;
 
     Cube cube;
     cube.setOrigin({0.f, 5.f, 0.f});
     cube.setSize(3.f);
     cube.setTexture(&texture);
     cube.setColor(Color::White);
-
 
     Event event;
     while (window.isOpen())
@@ -42,27 +42,26 @@ int main()
             if (event.type == EventType::Keyboard && event.keyboard.key == GLFW_KEY_ESCAPE)
                 window.close();
             else if (event.type == EventType::WindowResized)
-                {
-                    int width, height;
-                    window.getWindowSize(width, height);
-                    window.resizeWindow(width, height);
-                }
-                else if(event.type == EventType::Mouse)
-                {
-                    if(event.mouse.button == GLFW_MOUSE_BUTTON_LEFT && event.mouse.action)
-                       window.inputMode(GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-                    else if(event.mouse.button == GLFW_MOUSE_BUTTON_RIGHT && event.mouse.action)
+            {
+                int width, height;
+                window.getWindowSize(width, height);
+                window.resizeWindow(width, height);
+            }
+            else if (event.type == EventType::Mouse)
+            {
+                if (event.mouse.button == GLFW_MOUSE_BUTTON_LEFT && event.mouse.action)
+                    window.inputMode(GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                else if (event.mouse.button == GLFW_MOUSE_BUTTON_RIGHT && event.mouse.action)
                     window.inputMode(GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-                }
+            }
         }
 
- 
-        cube.rotate({70.f},{0.f},{70.f});
+        cube.rotate({70.f}, {0.f}, {70.f});
 
         camera.update();
-          
+
         window.clear();
-  
+
         window.render(camera);
 
         glBegin(GL_QUADS);
@@ -96,8 +95,6 @@ int main()
         window.render(cube);
 
         window.display();
-
-    
     }
     return 0;
 }

@@ -42,17 +42,26 @@ const WindowHints WindowHints::defaultSettings = WindowHints();
 Window::Window(int width, int height, const char *title, const WindowHints &settings)
 {
     if (!glfwInit())
-        throw std::runtime_error("GLFW failed");
+    {
+        sGLErrors->errorType = ErrorType::WindowError;
+        sGLErrors->windowError += "GLFW failed\n";
+    }
 
     window = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (!window)
-        throw std::runtime_error("Window creation failed");
+    {
+        sGLErrors->errorType = ErrorType::WindowError;
+        sGLErrors->windowError += "Window creation failed\n";
+    }
 
     glfwMakeContextCurrent(window);
 
     glewExperimental = true;
     if (glewInit() != GLEW_OK)
-        throw std::runtime_error("GLEW failed");
+    {
+        sGLErrors->errorType = ErrorType::WindowError;
+        sGLErrors->windowError += "GLEW failed\n";
+    }
 
     glEnable(GL_DEPTH_TEST);
 
@@ -65,7 +74,7 @@ Window::Window(int width, int height, const char *title, const WindowHints &sett
     glfwSetWindowPosCallback(window, windowMoveCallback);
     glfwSetWindowFocusCallback(window, windowFocusCallback);
     glfwSetWindowMaximizeCallback(window, windowMaximizeCallback);
-    glfwSetWindowCloseCallback(window,windowCloseCallback);
+    glfwSetWindowCloseCallback(window, windowCloseCallback);
 
     glViewport(0, 0, width, height);
 
@@ -76,7 +85,7 @@ Window::Window(int width, int height, const char *title, const WindowHints &sett
     glLoadIdentity();
 
     glClearColor(0.f, 0.f, 0.f, 1.f);
-    icon.pixels=nullptr;
+    icon.pixels = nullptr;
 }
 
 bool Window::isOpen() const
@@ -156,17 +165,17 @@ void Window::windowFocusCallback(GLFWwindow *window, int focus)
     events.type = events.focused ? EventType::WindowGainedFocus : EventType::WindowLostFocus;
 }
 
-void Window::windowMaximizeCallback(GLFWwindow* window, int maximized)
+void Window::windowMaximizeCallback(GLFWwindow *window, int maximized)
 {
-    if(maximized)
+    if (maximized)
         events.type = EventType::WindowMaximized;
     else
         events.type = EventType::WindowResized;
 }
 
-void Window::windowCloseCallback(GLFWwindow* window)
+void Window::windowCloseCallback(GLFWwindow *window)
 {
-    events.type=EventType::WindowClosed;
+    events.type = EventType::WindowClosed;
 }
 
 bool Window::pollEvents(Event &event)
@@ -206,14 +215,14 @@ void Window::getAbsoluteCursorPosition(double &x, double &y) const
     int windowX, windowY;
 
     glfwGetCursorPos(window, &xpos, &ypos);
-   
+
     glfwGetWindowPos(window, &windowX, &windowY);
 
     x = windowX + xpos;
     y = windowY + ypos;
 }
 
-void Window::setWindowIconImage(const char* filepath)
+void Window::setWindowIconImage(const char *filepath)
 {
     icon.pixels = stbi_load(filepath, &icon.width, &icon.height, 0, 4);
     glfwSetWindowIcon(window, 1, &icon);
@@ -221,19 +230,18 @@ void Window::setWindowIconImage(const char* filepath)
 
 bool Window::isKeyPressed(int key) const
 {
-    return glfwGetKey(window,key)==GLFW_PRESS;
+    return glfwGetKey(window, key) == GLFW_PRESS;
 }
 
 bool Window::isMouseButtonPressed(int button) const
 {
-    return glfwGetMouseButton(window,button)==GLFW_PRESS;
+    return glfwGetMouseButton(window, button) == GLFW_PRESS;
 }
-
 
 Window::~Window()
 {
-    if(icon.pixels)
-       stbi_image_free(icon.pixels);
+    if (icon.pixels)
+        stbi_image_free(icon.pixels);
     glfwDestroyWindow(window);
     glfwTerminate();
 }

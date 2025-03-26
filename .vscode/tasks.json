@@ -24,6 +24,7 @@
                 "${workspaceFolder}/include/self/Sounds/Sound.cpp",
                 "${workspaceFolder}/include/self/Shaders/Shader.cpp",
                 "${workspaceFolder}/include/self/Shaders/Texture.cpp",
+                "${workspaceFolder}/include/self/Error/Error.cpp",
                 "-lglew32",
                 "-lglfw3dll",
                 "-lopengl32",

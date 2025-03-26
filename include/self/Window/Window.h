@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include "Event.h"
 #include "../Objects/Objects.h"
+#include "../Error/Error.h"
 
 class WindowHints
 {
