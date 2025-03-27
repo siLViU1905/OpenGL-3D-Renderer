@@ -26,7 +26,7 @@ int main()
     texture.load("polo.png");
 
     if (!sGLErrors->good())
-        return -1;
+      return -1;
 
     Cube cube;
     cube.setOrigin({0.f, 5.f, 0.f});

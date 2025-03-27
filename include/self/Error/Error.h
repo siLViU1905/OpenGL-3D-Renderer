@@ -2,6 +2,7 @@
 #define __SGLERROR_H__
 #include <string>
 #include <optional>
+#include <vector>
 
 enum class ErrorType
 {
@@ -42,6 +43,8 @@ public:
     }
 
     bool good() const;
+
+    std::vector<std::pair<ErrorType,const char*>> getErrors() const;
 
     friend class Window;
     friend class Shader;
