@@ -2,8 +2,8 @@
 #define __WINDOW_H__
 
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "../../GL/glew.h"
+#include "../../GLFW/glfw3.h"
 #include "Event.h"
 #include "../Objects/Objects.h"
 #include "../Error/Error.h"

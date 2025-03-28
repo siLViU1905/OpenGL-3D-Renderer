@@ -1,7 +1,7 @@
 #ifndef __SOUND_H__
 #define __SOUND_H__
-#include <AL/al.h>
-#include <AL/alc.h>
+#include "../../AL/al.h"
+#include "../../AL/alc.h"
 #include <string>
 #include <vector>
 #include <unordered_map>

@@ -1,8 +1,8 @@
 #include "Shader.h"
 #include <fstream>
 #include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "../../GL/glew.h"
+#include "../../GLFW/glfw3.h"
 
 Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFilePath)
 {

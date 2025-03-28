@@ -27,6 +27,9 @@
                 "${workspaceFolder}/include/self/Error/Error.cpp",
                 "${workspaceFolder}/include/self/GPU/GPUInfo.cpp",
                 "${workspaceFolder}/include/self/Logger/Logger.cpp",
+                "${workspaceFolder}/include/self/Camera/Camera.cpp",
+                "${workspaceFolder}/include/self/Time/Time.cpp",
+                "${workspaceFolder}/include/self/Time/Clock.cpp",
                 "-lglew32",
                 "-lglfw3dll",
                 "-lopengl32",
@@ -37,8 +40,6 @@
                 "-lalsoft.excommon",
                 "-lOpenAL32",
                 "-lsndfile",
-                "-ltime",
-                "-lcamera",
                 "-o",
                 "${workspaceFolder}/src/output/main.exe"
             ],
