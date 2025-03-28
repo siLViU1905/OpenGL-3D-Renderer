@@ -21,6 +21,7 @@ class WindowHints
 
    WindowHints(int hint,int value);
 
+  
 
    static const WindowHints defaultSettings;
 
