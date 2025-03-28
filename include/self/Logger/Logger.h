@@ -6,6 +6,8 @@ class Logger
 {
    public:
    Logger(const char* log, std::ostream& outputStream = std::cout);
+
+   Logger(const unsigned char* log, std::ostream& outputStream = std::cout);
 };
 
 #endif // __LOGGER_H__

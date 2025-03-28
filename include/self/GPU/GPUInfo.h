@@ -4,11 +4,11 @@
 class GPUInfo
 {
   public:
-  const unsigned char* getName();
-  const unsigned char* getVendor();
-  const unsigned char* getVersion();
-  const unsigned char* getGLSLVersion();
-  const int getMaxTextureSize();
+  static const unsigned char* getName();
+  static const unsigned char* getVendor();
+  static const unsigned char* getOpenGLVersion();
+  static const unsigned char* getGLSLVersion();
+  static const int getMaxTextureSize();
 };
 
 #endif // __GPUINFO_H__

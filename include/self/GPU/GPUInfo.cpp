@@ -12,7 +12,7 @@ const unsigned char* GPUInfo::getVendor()
     return glGetString(GL_VENDOR);
 }
 
-const unsigned char* GPUInfo::getVersion()
+const unsigned char* GPUInfo::getOpenGLVersion()
 {
     return glGetString(GL_VERSION);
 }
