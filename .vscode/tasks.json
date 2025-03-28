@@ -25,6 +25,8 @@
                 "${workspaceFolder}/include/self/Shaders/Shader.cpp",
                 "${workspaceFolder}/include/self/Shaders/Texture.cpp",
                 "${workspaceFolder}/include/self/Error/Error.cpp",
+                "${workspaceFolder}/include/self/GPU/GPUInfo.cpp",
+                "${workspaceFolder}/include/self/Logger/Logger.cpp",
                 "-lglew32",
                 "-lglfw3dll",
                 "-lopengl32",
