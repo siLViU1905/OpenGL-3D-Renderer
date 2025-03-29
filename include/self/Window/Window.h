@@ -37,6 +37,10 @@ class Window
 
    GLFWimage icon;
 
+   GLFWimage cursorImage;
+
+   GLFWcursor* cursor;
+
    static Event events;
    //callbacks
 
@@ -63,7 +67,7 @@ class Window
 
    void close();
 
-  void setClearColor(vec3 color);
+  void setClearColor(Color color);
 
   void inputMode(int mode,int value);
 
@@ -84,6 +88,8 @@ class Window
    void getAbsoluteCursorPosition(double& x, double& y) const;
   
    void setWindowIconImage(const char* filepath);
+
+   void setCursorImage(const char* filepath);
    
    bool isKeyPressed(int key) const;
 

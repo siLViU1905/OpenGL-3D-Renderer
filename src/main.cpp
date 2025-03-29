@@ -1,38 +1,39 @@
-#include <self/sgl.h>
+#include "../include/self/sgl.h"
 #include <iostream>
 #include <vector>
 #include <cmath>
 #include <sstream>
+#include <thread>
+
+float dDistance(vec3 pos1, vec3 pos2)
+{
+    float x = (pos2.x - pos1.x) * (pos2.x - pos1.x);
+    float y = (pos2.y - pos1.y) * (pos2.x - pos1.y);
+    float z = (pos2.z - pos1.z) * (pos2.z - pos1.z);
+
+    return std::sqrt(x + y + z);
+}
+
 
 int main()
 {
     Window window(1080, 720, "Scene");
 
-    window.setClearColor({0.529f, 0.808f, 0.922f});
+    window.setClearColor(Color{0.529f, 0.808f, 0.922f});
 
     window.setWindowIconImage("polo.png");
+
+    window.setCursorImage("polo.png");
 
     Camera camera(&window);
 
     camera.setPosition({0.f, 0.f, 5.f});
     camera.setMouseSensivity(0.06f);
 
-    std::vector<Cube> cubes;
-
-    srand(time(0));
     float gridSize = 10.f;
 
-    Texture texture;
-    texture.load("polo.png");
-
     if (!sGLErrors->good())
-      return -1;
-
-    Cube cube;
-    cube.setOrigin({0.f, 5.f, 0.f});
-    cube.setSize(3.f);
-    cube.setTexture(&texture);
-    cube.setColor(Color::White);
+        return -1;
 
     Event event;
     while (window.isOpen())
@@ -55,8 +56,6 @@ int main()
                     window.inputMode(GLFW_CURSOR, GLFW_CURSOR_NORMAL);
             }
         }
-
-        cube.rotate({70.f}, {0.f}, {70.f});
 
         camera.update();
 
@@ -91,8 +90,6 @@ int main()
         }
 
         glEnd();
-
-        window.render(cube);
 
         window.display();
     }

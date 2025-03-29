@@ -86,6 +86,8 @@ Window::Window(int width, int height, const char *title, const WindowHints &sett
 
     glClearColor(0.f, 0.f, 0.f, 1.f);
     icon.pixels = nullptr;
+    cursorImage.pixels = nullptr;
+    cursor = nullptr;
 }
 
 bool Window::isOpen() const
@@ -103,9 +105,9 @@ GLFWwindow *Window::getWindow()
     return window;
 }
 
-void Window::setClearColor(vec3 color)
+void Window::setClearColor(Color color)
 {
-    glClearColor(color.x, color.y, color.z, 1.f);
+    glClearColor(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
 }
 
 void Window::inputMode(int mode, int value)
@@ -228,6 +230,21 @@ void Window::setWindowIconImage(const char *filepath)
     glfwSetWindowIcon(window, 1, &icon);
 }
 
+void Window::setCursorImage(const char* filepath)
+{
+    cursorImage.pixels = stbi_load(filepath, &cursorImage.width, &cursorImage.height, 0, 4);
+    cursor = glfwCreateCursor(&cursorImage,0,0);
+    if(!cursor)
+      {
+        sGLErrors->errorType = ErrorType::WindowError;
+        sGLErrors->windowError += "Failed to create cursor\n";
+        stbi_image_free(cursorImage.pixels);
+        cursorImage.pixels = nullptr;
+        return;
+      }
+    glfwSetCursor(window,cursor);
+}
+
 bool Window::isKeyPressed(int key) const
 {
     return glfwGetKey(window, key) == GLFW_PRESS;
@@ -242,6 +259,11 @@ Window::~Window()
 {
     if (icon.pixels)
         stbi_image_free(icon.pixels);
+        if (cursorImage.pixels)
+        {
+           glfwDestroyCursor(cursor);
+           stbi_image_free(cursorImage.pixels);
+        }
     glfwDestroyWindow(window);
     glfwTerminate();
 }

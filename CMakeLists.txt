@@ -9,7 +9,7 @@ set(CMAKE_GENERATOR_PLATFORM x64)
 cmake_policy(SET CMP0072 NEW)
 
 # Explicitly set library paths
-set(GLFW3_LIBRARY "${CMAKE_SOURCE_DIR}/lib/libglfw3dll.a")
+set(GLFW3_LIBRARY "${CMAKE_SOURCE_DIR}/lib/glfw3.lib")
 set(GLFW3_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 # GLEW library configuration
@@ -56,7 +56,6 @@ add_executable(s3D_Renderer
     include/self/Window/Mouse.cpp
     include/self/Window/Window.cpp
     include/self/Camera/Camera.cpp
-    include/self/Time/Clock.cpp
     include/self/Time/Time.cpp
 )
 
