@@ -1,7 +1,6 @@
 #ifndef __SGLERROR_H__
 #define __SGLERROR_H__
 #include <string>
-#include <optional>
 #include <vector>
 
 enum class ErrorType
@@ -51,6 +50,6 @@ public:
     friend class Texture;
 };
 
-extern std::optional<sGLError> sGLErrors;
+extern sGLError sGLErrors;
 
 #endif // __SGLERROR_H__

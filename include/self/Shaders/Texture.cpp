@@ -37,9 +37,9 @@ bool Texture::load(const char *filepath)
     }
     else
     {
-        sGLErrors->errorType = ErrorType::TextureError;
-        sGLErrors->textureError += stbi_failure_reason();
-        sGLErrors->textureError.push_back('\n');
+        sGLErrors.errorType = ErrorType::TextureError;
+        sGLErrors.textureError += stbi_failure_reason();
+        sGLErrors.textureError.push_back('\n');
         stbi_image_free(data);
         return false;
     }

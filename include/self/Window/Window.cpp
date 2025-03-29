@@ -56,23 +56,23 @@ Window::Window(int width, int height, const char *title, const WindowHints &sett
 {
     if (!glfwInit())
     {
-        sGLErrors->errorType = ErrorType::WindowError;
-        sGLErrors->windowError += "GLFW failed\n";
+        sGLErrors.errorType = ErrorType::WindowError;
+        sGLErrors.windowError += "GLFW failed\n";
     }
 
     window = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (!window)
     {
-        sGLErrors->errorType = ErrorType::WindowError;
-        sGLErrors->windowError += "Window creation failed\n";
+        sGLErrors.errorType = ErrorType::WindowError;
+        sGLErrors.windowError += "Window creation failed\n";
     }
 
     glfwMakeContextCurrent(window);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        sGLErrors->errorType = ErrorType::WindowError;
-        sGLErrors->windowError += "GLAD initialization failed\n";
+        sGLErrors.errorType = ErrorType::WindowError;
+        sGLErrors.windowError += "GLAD initialization failed\n";
     }
 
     glEnable(GL_DEPTH_TEST);
@@ -92,7 +92,6 @@ Window::Window(int width, int height, const char *title, const WindowHints &sett
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    //gluPerspective(45.0f, (float)width / (float)height, 0.1f, 100.0f);
     perspectiveGL(45.0, (float)width / (float)height, 0.1, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -214,7 +213,6 @@ void Window::resizeWindow(int newWidth, int newHeight)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    //gluPerspective(45.0f, (float)newWidth / (float)newHeight, 0.1f, 100.0f);
     perspectiveGL(45.0, (float)newWidth / (float)newHeight, 0.1, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -250,8 +248,8 @@ void Window::setCursorImage(const char* filepath)
     cursor = glfwCreateCursor(&cursorImage,0,0);
     if(!cursor)
       {
-        sGLErrors->errorType = ErrorType::WindowError;
-        sGLErrors->windowError += "Failed to create cursor\n";
+        sGLErrors.errorType = ErrorType::WindowError;
+        sGLErrors.windowError += "Failed to create cursor\n";
         stbi_image_free(cursorImage.pixels);
         cursorImage.pixels = nullptr;
         return;

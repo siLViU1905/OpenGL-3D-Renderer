@@ -28,13 +28,19 @@ int main()
 
     float gridSize = 10.f;
 
-    if (!sGLErrors->good())
+    if (!sGLErrors.good())
         return -1;
+
 
     Cube cube;
     cube.setOrigin({1.f,1.f,1.f});
     cube.setSize(1.f);
     cube.setColor(Color::Green);
+
+    Parallelepiped para;
+    para.setOrigin({7.f,5.f,6.f});
+    para.setSize({3,2,4});
+    para.setColor(Color::Black);
 
     Event event;
     while (window.isOpen())
@@ -65,6 +71,8 @@ int main()
         window.render(camera);
 
         window.render(cube);
+
+        window.render(para);
 
         window.display();
     }

@@ -14,6 +14,7 @@ project "s3D_Renderer"
     libdirs { "lib" }
 
     files {
+        "include/GL/glad.c",
         "src/main.cpp",
         "include/self/Objects/Objects.cpp",
         "include/self/Objects/vec3.cpp",
@@ -35,7 +36,6 @@ project "s3D_Renderer"
     }
 
     links {
-        "glew32",
         "glfw3",
         "opengl32",
         "alsoft.common",

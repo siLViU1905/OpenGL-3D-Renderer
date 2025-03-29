@@ -1,6 +1,6 @@
 #include "Error.h"
 
-std::optional<sGLError> sGLErrors;
+sGLError sGLErrors;
 
 sGLError::sGLError()
 {

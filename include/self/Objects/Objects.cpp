@@ -1,6 +1,7 @@
 #include "Objects.h"
 
 #include <cmath>
+#include "../../GL/glad.h"
 #include "../../GLFW/glfw3.h"
 
 Renderable::~Renderable()

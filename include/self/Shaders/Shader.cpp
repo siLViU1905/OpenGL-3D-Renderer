@@ -9,16 +9,16 @@ Shader::Shader(const std::string &vertexFilePath, const std::string &fragmentFil
     std::ifstream vertexIn(vertexFilePath);
     if (!vertexIn.is_open())
     {
-        sGLErrors->errorType = ErrorType::ShaderError;
-        sGLErrors->shaderError += "File not found\n";
+        sGLErrors.errorType = ErrorType::ShaderError;
+        sGLErrors.shaderError += "File not found\n";
     }
     vertexShader = std::string((std::istreambuf_iterator<char>(vertexIn)), (std::istreambuf_iterator<char>()));
 
     std::ifstream fragmentIn(fragmentFilePath);
     if (!fragmentIn.is_open())
     {
-        sGLErrors->errorType = ErrorType::ShaderError;
-        sGLErrors->shaderError += "File not found\n";
+        sGLErrors.errorType = ErrorType::ShaderError;
+        sGLErrors.shaderError += "File not found\n";
     }
     fragmentShader = std::string((std::istreambuf_iterator<char>(fragmentIn)), (std::istreambuf_iterator<char>()));
 }
@@ -38,9 +38,9 @@ void Shader::compileShader()
     {
         glGetShaderInfoLog(vertex, 512, NULL, infoLog);
 
-        sGLErrors->errorType = ErrorType::ShaderError;
-        sGLErrors->shaderError += infoLog;
-        sGLErrors->shaderError.push_back('\n');
+        sGLErrors.errorType = ErrorType::ShaderError;
+        sGLErrors.shaderError += infoLog;
+        sGLErrors.shaderError.push_back('\n');
     }
 
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
@@ -51,9 +51,9 @@ void Shader::compileShader()
     if (!succes)
     {
         glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-            sGLErrors->errorType = ErrorType::ShaderError;
-            sGLErrors->shaderError += infoLog;
-            sGLErrors->shaderError.push_back('\n');
+            sGLErrors.errorType = ErrorType::ShaderError;
+            sGLErrors.shaderError += infoLog;
+            sGLErrors.shaderError.push_back('\n');
     }
 
     ID = glCreateProgram();
@@ -67,9 +67,9 @@ void Shader::compileShader()
     if (!succes)
     {
         glGetProgramInfoLog(ID, 512, NULL, infoLog);
-        sGLErrors->errorType = ErrorType::ShaderError;
-        sGLErrors->shaderError += infoLog;
-        sGLErrors->shaderError.push_back('\n');
+        sGLErrors.errorType = ErrorType::ShaderError;
+        sGLErrors.shaderError += infoLog;
+        sGLErrors.shaderError.push_back('\n');
     }
 
     glDeleteShader(vertex);
