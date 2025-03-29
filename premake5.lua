@@ -23,7 +23,6 @@ project "s3D_Renderer"
         "include/self/Window/Event.cpp",
         "include/self/Window/Keyboard.cpp",
         "include/self/Window/Mouse.cpp",
-        "include/self/Window/Monitor.cpp",
         "include/self/Sounds/Sound.cpp",
         "include/self/Shaders/Shader.cpp",
         "include/self/Shaders/Texture.cpp",
