@@ -28,7 +28,7 @@
                 "${workspaceFolder}/include/self/Logger/Logger.cpp",
                 "${workspaceFolder}/include/self/Camera/Camera.cpp",
                 "${workspaceFolder}/include/self/Time/Time.cpp",
-                "${workspaceFolder}/include/self/Time/Clock.cpp",
+                //"${workspaceFolder}/include/self/Time/Clock.cpp",
                 "-lglew32",
                 "-lglfw3dll",
                 "-lopengl32",

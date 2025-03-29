@@ -21,8 +21,6 @@ int main()
 
     window.setClearColor(Color{0.529f, 0.808f, 0.922f});
 
-    window.setWindowIconImage("polo.png");
-
     Camera camera(&window);
 
     camera.setPosition({0.f, 0.f, 5.f});
@@ -32,6 +30,11 @@ int main()
 
     if (!sGLErrors->good())
         return -1;
+
+    Cube cube;
+    cube.setOrigin({1.f,1.f,1.f});
+    cube.setSize(1.f);
+    cube.setColor(Color::Green);
 
     Event event;
     while (window.isOpen())
@@ -61,33 +64,7 @@ int main()
 
         window.render(camera);
 
-        glBegin(GL_QUADS);
-
-        glColor3f(0.8f, 0.8f, 0.8f);
-
-        glVertex3f(-gridSize, -1.f, gridSize);
-        glVertex3f(-gridSize, -1.f, -gridSize);
-        glVertex3f(gridSize, -1.f, -gridSize);
-        glVertex3f(gridSize, -1.f, gridSize);
-
-        glEnd();
-
-        glBegin(GL_LINES);
-        glColor3f(0.0f, 0.0f, 0.0f);
-
-        for (float i = -gridSize; i <= gridSize; i += 1.0f)
-        {
-            glVertex3f(i, -1.0f, -gridSize);
-            glVertex3f(i, -1.0f, gridSize);
-        }
-
-        for (float i = -gridSize; i <= gridSize; i += 1.0f)
-        {
-            glVertex3f(-gridSize, -1.0f, i);
-            glVertex3f(gridSize, -1.0f, i);
-        }
-
-        glEnd();
+        window.render(cube);
 
         window.display();
     }
