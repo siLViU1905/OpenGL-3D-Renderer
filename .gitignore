@@ -1,1 +1,5 @@
 src/output/main.exe
+*.db-wal
+*.db
+*.db-shm
+*.vsidx
