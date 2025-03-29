@@ -23,8 +23,6 @@ int main()
 
     window.setWindowIconImage("polo.png");
 
-    window.setCursorImage("polo.png");
-
     Camera camera(&window);
 
     camera.setPosition({0.f, 0.f, 5.f});

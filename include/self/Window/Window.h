@@ -44,6 +44,8 @@ class Window
    static Event events;
    //callbacks
 
+  static void perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar);
+
    static void keyboardCallback(GLFWwindow* window,int key,int scancode,int action,int mode);
 
    static void mouseButtonCallback(GLFWwindow* window,int button,int action,int mode);

@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include "../Shaders/stb_image.h"
+#include <cmath>
 
 WindowHints::WindowHints() : hints(nullptr), values(nullptr), size(0) {}
 
@@ -35,6 +36,18 @@ WindowHints::~WindowHints()
         delete[] hints;
         delete[] values;
     }
+}
+
+void Window::perspectiveGL(GLdouble fovY, GLdouble aspect, GLdouble zNear, GLdouble zFar)
+{
+        const GLdouble pi = 3.1415926535897932384626433832795;
+        GLdouble fW, fH;
+        
+        fH = tan(fovY / 360 * pi) * zNear;
+        fW = fH * aspect;
+        
+        glFrustum(-fW, fW, -fH, fH, zNear, zFar);
+    
 }
 
 const WindowHints WindowHints::defaultSettings = WindowHints();
@@ -80,7 +93,8 @@ Window::Window(int width, int height, const char *title, const WindowHints &sett
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45.0f, (float)width / (float)height, 0.1f, 100.0f);
+    //gluPerspective(45.0f, (float)width / (float)height, 0.1f, 100.0f);
+    perspectiveGL(45.0, (float)width / (float)height, 0.1, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
@@ -201,7 +215,8 @@ void Window::resizeWindow(int newWidth, int newHeight)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45.0f, (float)newWidth / (float)newHeight, 0.1f, 100.0f);
+    //gluPerspective(45.0f, (float)newWidth / (float)newHeight, 0.1f, 100.0f);
+    perspectiveGL(45.0, (float)newWidth / (float)newHeight, 0.1, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
