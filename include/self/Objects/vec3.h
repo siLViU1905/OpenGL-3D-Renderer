@@ -1,4 +1,7 @@
-#pragma once
+#ifndef __VEC3_H__
+#define __VEC3_H__
+
+
 
 class vec3
 {
@@ -31,3 +34,5 @@ vec3& operator*=(vec3& v,float val);
 vec3 operator/(const vec3& v,float val);
 
 vec3& operator/=(vec3& v,float val);
+
+#endif // __VEC3_H__

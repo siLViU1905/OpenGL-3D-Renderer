@@ -27,6 +27,8 @@ add_executable(s3D_Renderer
     include/self/Objects/vec3.cpp
     include/self/Objects/Angle.cpp
     include/self/Objects/Color.cpp
+    include/self/Objects/Bound.cpp
+    include/self/Objects/Renderable.cpp
     include/self/Window/Window.cpp
     include/self/Window/Event.cpp
     include/self/Window/Keyboard.cpp

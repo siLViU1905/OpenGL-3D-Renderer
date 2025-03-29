@@ -4,10 +4,6 @@
 #include "../../GL/glad.h"
 #include "../../GLFW/glfw3.h"
 
-Renderable::~Renderable()
-{
-}
-
 Object::Object()
 {
     texture = nullptr;
@@ -77,6 +73,14 @@ void Object::setTexture(Texture *texture)
 
 Parallelepiped::Parallelepiped() : Object()
 {
+}
+
+Bound Parallelepiped::getBound() const
+{
+    Bound bound;
+    bound.position =getPosition();
+    bound.size=size;
+    return bound;
 }
 
 void Parallelepiped::render() const
@@ -163,6 +167,14 @@ vec3 Parallelepiped::getSize() const
 Cube::Cube() : Object()
 {
     size = 0.f;
+}
+
+Bound Cube::getBound() const
+{
+    Bound bound;
+    bound.size={size,size,size};
+    bound.position=getPosition();
+    return bound;
 }
 
 void Cube::render() const
@@ -272,6 +284,15 @@ Cone::Cone() : Object()
     height = 0.f;
 }
 
+Bound Cone::getBound() const
+{
+    Bound bound;
+    float doubleRadius = radius * 2.f;
+    bound.size = {doubleRadius,height,doubleRadius};
+    bound.position=getPosition();
+    return bound;
+}
+
 void Cone::render() const
 {
     glPushMatrix();
@@ -356,6 +377,15 @@ float Cone::getHeight() const
 Cylinder::Cylinder() : Object()
 {
     height = baseRadius = topRadius = 0.f;
+}
+
+Bound Cylinder::getBound() const
+{
+    Bound bound;
+    const float& maxRadius = std::max(topRadius,baseRadius) * 2.f;
+    bound.size={maxRadius,height,maxRadius};
+    bound.position = getPosition();
+    return bound;
 }
 
 void Cylinder::render() const
@@ -462,6 +492,15 @@ void Sphere::setRadius(float radius)
 float Sphere::getRadius() const
 {
     return radius;
+}
+
+Bound Sphere::getBound() const
+{
+    Bound bound;
+    float doubleRadius = radius * 2.f;
+    bound.size = {doubleRadius,doubleRadius,doubleRadius};
+    bound.position = getPosition();
+    return bound;
 }
 
 void Sphere::setStacks(int stacks)
