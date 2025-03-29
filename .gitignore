@@ -3,3 +3,4 @@ src/output/main.exe
 *.db
 *.db-shm
 *.vsidx
+src/output/main.exe
