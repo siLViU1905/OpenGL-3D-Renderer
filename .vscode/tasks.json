@@ -11,6 +11,7 @@
                 "-I${workspaceFolder}/include",
                 
                 "-L${workspaceFolder}/lib",
+                "${workspaceFolder}/include/GL/glad.c",
                 "${workspaceFolder}/src/main.cpp",
                 "${workspaceFolder}/include/self/Objects/Objects.cpp",
                 "${workspaceFolder}/include/self/Objects/vec3.cpp",

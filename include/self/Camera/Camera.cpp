@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "../../GL/glew.h"
+#include "../../GL/glad.h"
 #include "../../GLFW/glfw3.h"
 #include <cmath>
 

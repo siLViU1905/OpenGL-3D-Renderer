@@ -69,11 +69,10 @@ Window::Window(int width, int height, const char *title, const WindowHints &sett
 
     glfwMakeContextCurrent(window);
 
-    glewExperimental = true;
-    if (glewInit() != GLEW_OK)
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         sGLErrors->errorType = ErrorType::WindowError;
-        sGLErrors->windowError += "GLEW failed\n";
+        sGLErrors->windowError += "GLAD initialization failed\n";
     }
 
     glEnable(GL_DEPTH_TEST);

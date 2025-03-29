@@ -1,5 +1,5 @@
 #include "GPUInfo.h"
-#include "../../GL/glew.h"
+#include "../../GL/glad.h"
 #include "../../GLFW/glfw3.h"
 
 const unsigned char* GPUInfo::getName()

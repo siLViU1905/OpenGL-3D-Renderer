@@ -109,7 +109,7 @@ void Parallelepiped::render() const
      // Back face
      glTexCoord2f(1.0f, 0.0f); glVertex3f(origin.x, origin.y, origin.z - size.z);
      glTexCoord2f(0.0f, 0.0f); glVertex3f(origin.x + size.x, origin.y, origin.z - size.z);
-     glTexCoord2f(0.0f, 1.0f); glVertex3f(origin.x + size.x, origin.y - size.z, origin.z - size.z);
+     glTexCoord2f(0.0f, 1.0f); glVertex3f(origin.x + size.x, origin.y - size.y, origin.z - size.z);
      glTexCoord2f(1.0f, 1.0f); glVertex3f(origin.x, origin.y - size.y, origin.z - size.z);
  
      // Top face
