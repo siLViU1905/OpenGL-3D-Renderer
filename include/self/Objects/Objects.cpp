@@ -566,13 +566,13 @@ void Sphere::render() const
 
     glTranslatef(movement.x, movement.y, movement.z);
 
-    glTranslatef(origin.x + radius / 2, origin.y - radius / 2, origin.z - radius / 2);
+    glTranslatef(origin.x, origin.y, origin.z);
 
     glRotatef(rotation.x, 1.f, 0.f, 0.f);
     glRotatef(rotation.y, 0.f, 1.f, 0.f);
     glRotatef(rotation.z, 0.f, 0.f, 1.f);
 
-    glTranslatef(-(origin.x + radius / 2), -(origin.y - radius / 2), -(origin.z - radius / 2));
+    glTranslatef(-origin.x, -origin.y, -origin.z);
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
     if (texture)
