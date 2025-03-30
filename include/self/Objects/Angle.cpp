@@ -11,7 +11,7 @@ float Angle::asRadians() const
 
 float Angle::asDegrees() const
 {
-  return value * RAD_TO_DEG;
+  return value;
 }
 
 Angle Angle::operator+(const Angle& angle) const

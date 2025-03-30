@@ -21,14 +21,14 @@ void Object::move(float offset)
 
 void Object::rotate(Angle phi)
 {
-    rotation += phi.asRadians();
+    rotation += phi.asDegrees();
 }
 
 void Object::rotate(Angle xPhi, Angle yPhi, Angle zPhi)
 {
-    rotation.x += xPhi.asRadians();
-    rotation.y += yPhi.asRadians();
-    rotation.z += zPhi.asRadians();
+    rotation.x += xPhi.asDegrees();
+    rotation.y += yPhi.asDegrees();
+    rotation.z += zPhi.asDegrees();
 }
 
 void Object::render() const
@@ -80,6 +80,7 @@ Bound Parallelepiped::getBound() const
     Bound bound;
     bound.position =getPosition();
     bound.size=size;
+    bound.rotation = getRotation();
     return bound;
 }
 
@@ -172,8 +173,9 @@ Cube::Cube() : Object()
 Bound Cube::getBound() const
 {
     Bound bound;
-    bound.size={size,size,size};
-    bound.position=getPosition();
+    bound.position = getPosition();
+    bound.size = vec3(size,size,size);
+    bound.rotation = getRotation();
     return bound;
 }
 
@@ -287,9 +289,8 @@ Cone::Cone() : Object()
 Bound Cone::getBound() const
 {
     Bound bound;
-    float doubleRadius = radius * 2.f;
-    bound.size = {doubleRadius,height,doubleRadius};
-    bound.position=getPosition();
+    bound.size = {radius,height,radius};
+    bound.position=getPosition() + vec3(-radius * 0.5f,0.f,radius * 0.5f);
     return bound;
 }
 
@@ -315,7 +316,7 @@ void Cone::render() const
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
     glTexCoord2f(0.5f, 0.5f); 
-    glVertex3f(origin.x, origin.y, origin.z);
+    glVertex3f(origin.x, origin.y - height, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
     {
@@ -324,7 +325,7 @@ void Cone::render() const
         float u = (xoff + 1.0f) * 0.5f; 
         float v = (zoff + 1.0f) * 0.5f;
         glTexCoord2f(u, v);
-        glVertex3f(origin.x + xoff, origin.y, origin.z + zoff);
+        glVertex3f(origin.x + xoff, origin.y - height, origin.z + zoff);
     }
 
     glEnd();
@@ -332,7 +333,7 @@ void Cone::render() const
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
     glTexCoord2f(0.5f, 0.5f); 
-    glVertex3f(origin.x, origin.y + height, origin.z);
+    glVertex3f(origin.x, origin.y, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
     {
@@ -341,7 +342,7 @@ void Cone::render() const
         float u = (xoff + 1.0f) * 0.5f;
         float v = (zoff + 1.0f) * 0.5f;
         glTexCoord2f(u, v);
-        glVertex3f(origin.x + xoff, origin.y, origin.z + zoff);
+        glVertex3f(origin.x + xoff, origin.y - height, origin.z + zoff);
     }
 
     glEnd();
@@ -382,9 +383,9 @@ Cylinder::Cylinder() : Object()
 Bound Cylinder::getBound() const
 {
     Bound bound;
-    const float& maxRadius = std::max(topRadius,baseRadius) * 2.f;
-    bound.size={maxRadius,height,maxRadius};
-    bound.position = getPosition();
+    float maxRadius = std::max(baseRadius,topRadius);
+   bound.position = getPosition() + vec3(-maxRadius,0.f,maxRadius);
+   bound.size = vec3(maxRadius + maxRadius,height,maxRadius + maxRadius);
     return bound;
 }
 
@@ -392,54 +393,72 @@ void Cylinder::render() const
 {
     glPushMatrix();
 
+    glTranslatef(movement.x, movement.y, movement.z);
+
+   
+    float centerX = origin.x + (baseRadius + topRadius) / 4;
+    float centerY = origin.y - height / 2;
+    float centerZ = origin.z - (baseRadius + topRadius) / 4;
+
+    glTranslatef(centerX, centerY, centerZ);
+
     glRotatef(rotation.x, 1.f, 0.f, 0.f);
     glRotatef(rotation.y, 0.f, 1.f, 0.f);
     glRotatef(rotation.z, 0.f, 0.f, 1.f);
 
-    glTranslatef(movement.x, movement.y, movement.z);
+    glTranslatef(-centerX, -centerY, -centerZ);
 
-    // base circle
+    
     glBegin(GL_TRIANGLE_FAN);
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
+    glVertex3f(origin.x, origin.y - height, origin.z);
+
+    for (int i = 0; i <= 360; i += 12)
+    {
+        float xoff = cosf((float)i * DEG_TO_RAD) * baseRadius;
+        float zoff = sinf((float)i * DEG_TO_RAD) * baseRadius;
+        glVertex3f(origin.x + xoff, origin.y - height, origin.z + zoff);
+    }
+
+    glEnd();
+
+    
+    glBegin(GL_TRIANGLE_FAN);
+
+    glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
+
     glVertex3f(origin.x, origin.y, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
     {
-        float xoff = cosf((float)i * DEG_TO_RAD);
-        float zoff = sinf((float)i * DEG_TO_RAD);
+        float xoff = cosf((float)i * DEG_TO_RAD) * topRadius;
+        float zoff = sinf((float)i * DEG_TO_RAD) * topRadius;
         glVertex3f(origin.x + xoff, origin.y, origin.z + zoff);
     }
 
     glEnd();
 
-    // top circle
-    glBegin(GL_TRIANGLE_FAN);
-
-    glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
-
-    glVertex3f(origin.x, origin.y + height, origin.z);
-
-    for (int i = 0; i <= 360; i += 12)
-    {
-        float xoff = cosf((float)i * DEG_TO_RAD);
-        float zoff = sinf((float)i * DEG_TO_RAD);
-        glVertex3f(origin.x + xoff, origin.y + height, origin.z + zoff);
-    }
-
-    glEnd();
-
-    // side
+    
     glBegin(GL_QUAD_STRIP);
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
 
     for (int i = 0; i <= 360; i += 12)
     {
-        float xoff = cosf((float)i * DEG_TO_RAD);
-        float zoff = sinf((float)i * DEG_TO_RAD);
-        glVertex3f(origin.x + xoff, origin.y, origin.z + zoff);
-        glVertex3f(origin.x + xoff, origin.y + height, origin.z + zoff);
+        float angle = (float)i * DEG_TO_RAD;
+        float cosA = cosf(angle);
+        float sinA = sinf(angle);
+        
+        
+        float baseX = origin.x + cosA * baseRadius;
+        float baseZ = origin.z + sinA * baseRadius;
+        glVertex3f(baseX, origin.y - height, baseZ);
+        
+        
+        float topX = origin.x + cosA * topRadius;
+        float topZ = origin.z + sinA * topRadius;
+        glVertex3f(topX, origin.y, topZ);
     }
 
     glEnd();
@@ -499,7 +518,7 @@ Bound Sphere::getBound() const
     Bound bound;
     float doubleRadius = radius * 2.f;
     bound.size = {doubleRadius,doubleRadius,doubleRadius};
-    bound.position = getPosition();
+    bound.position = getPosition() + vec3(-radius,radius,radius);
     return bound;
 }
 

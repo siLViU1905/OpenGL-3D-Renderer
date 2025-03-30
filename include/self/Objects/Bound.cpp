@@ -32,35 +32,61 @@ bool Bound::intersects(const Bound &bound) const
 
 void Bound::render() const
 {
+   glPushMatrix();
+  
+   vec3 halfPos = position + size * 0.5f;
 
-    glBegin(GL_LINES);
-    glColor3f(1.f,1.f,1.f);
+   glTranslatef(halfPos.x,halfPos.y,halfPos.z);
+
+   glRotatef(rotation.x, 1.f, 0.f, 0.f);
+   glRotatef(rotation.y, 0.f, 1.f, 0.f);
+   glRotatef(rotation.z, 0.f, 0.f, 1.f);  
+
+   glTranslatef(-halfPos.x,-halfPos.y,-halfPos.z);
+
     glLineWidth(2.f);
-
+    glColor3f(1.f, 1.f, 1.f);
+    glBegin(GL_LINES);
+    
     glVertex3f(position.x, position.y, position.z);
     glVertex3f(position.x + size.x, position.y, position.z);
+    
+    glVertex3f(position.x + size.x, position.y, position.z);
+    glVertex3f(position.x + size.x, position.y - size.y, position.z);
+    
     glVertex3f(position.x + size.x, position.y - size.y, position.z);
     glVertex3f(position.x, position.y - size.y, position.z);
+    
+    glVertex3f(position.x, position.y - size.y, position.z);
+    glVertex3f(position.x, position.y, position.z);
+    
+    
     glVertex3f(position.x, position.y, position.z - size.z);
     glVertex3f(position.x + size.x, position.y, position.z - size.z);
+    
+    glVertex3f(position.x + size.x, position.y, position.z - size.z);
+    glVertex3f(position.x + size.x, position.y - size.y, position.z - size.z);
+    
     glVertex3f(position.x + size.x, position.y - size.y, position.z - size.z);
     glVertex3f(position.x, position.y - size.y, position.z - size.z);
+    
+    glVertex3f(position.x, position.y - size.y, position.z - size.z);
+    glVertex3f(position.x, position.y, position.z - size.z);
+    
+    
     glVertex3f(position.x, position.y, position.z);
     glVertex3f(position.x, position.y, position.z - size.z);
-    glVertex3f(position.x + size.x, position.y, position.z - size.z);
-    glVertex3f(position.x + size.x, position.y, position.z);
-    glVertex3f(position.x, position.y - size.y, position.z);
-    glVertex3f(position.x + size.x, position.y - size.y, position.z);
-    glVertex3f(position.x + size.x, position.y - size.y, position.z - size.z);
-    glVertex3f(position.x, position.y - size.y, position.z - size.z);
-    glVertex3f(position.x, position.y, position.z);
-    glVertex3f(position.x, position.y, position.z - size.z);
-    glVertex3f(position.x, position.y - size.y, position.z - size.z);
-    glVertex3f(position.x, position.y - size.y, position.z);
+    
     glVertex3f(position.x + size.x, position.y, position.z);
     glVertex3f(position.x + size.x, position.y, position.z - size.z);
-    glVertex3f(position.x + size.x, position.y - size.y, position.z - size.z);
+    
     glVertex3f(position.x + size.x, position.y - size.y, position.z);
-
+    glVertex3f(position.x + size.x, position.y - size.y, position.z - size.z);
+    
+    glVertex3f(position.x, position.y - size.y, position.z);
+    glVertex3f(position.x, position.y - size.y, position.z - size.z);
+    
     glEnd();
+
+    glPopMatrix();
 }

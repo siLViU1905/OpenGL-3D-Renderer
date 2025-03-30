@@ -5,7 +5,7 @@
 #include "../../GL/glad.h"
 #include "../../GLFW/glfw3.h"
 #include "Event.h"
-#include "../Objects/Objects.h"
+#include "../Objects/Sprite.h"
 #include "../Error/Error.h"
 
 class WindowHints

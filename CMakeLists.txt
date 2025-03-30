@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.26.0)
 project(s3D_Renderer)
 
-#set(CMAKE_CXX_COMPILER "C:/msys64/ucrt64/bin/g++.exe")
 set(CMAKE_CXX_STANDARD 20) 
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
@@ -29,6 +28,7 @@ add_executable(s3D_Renderer
     include/self/Objects/Color.cpp
     include/self/Objects/Bound.cpp
     include/self/Objects/Renderable.cpp
+    include/self/Objects/Sprite.cpp
     include/self/Window/Window.cpp
     include/self/Window/Event.cpp
     include/self/Window/Keyboard.cpp
@@ -41,7 +41,7 @@ add_executable(s3D_Renderer
     include/self/Logger/Logger.cpp
     include/self/Camera/Camera.cpp
     include/self/Time/Time.cpp
-    #include/self/Time/Clock.cpp
+    include/self/Time/Clock.cpp
 )
 
 set_target_properties(s3D_Renderer PROPERTIES OUTPUT_NAME "main")
@@ -57,9 +57,6 @@ target_link_libraries(s3D_Renderer
     sndfile
 )
 
-
-
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
-
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG -O3")

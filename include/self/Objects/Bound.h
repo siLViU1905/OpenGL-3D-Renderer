@@ -7,7 +7,7 @@ class Bound:public Renderable
 {
   vec3 position;
   vec3 size;
-
+  vec3 rotation;
   void render() const override;
 
   public:

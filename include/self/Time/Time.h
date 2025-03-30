@@ -1,5 +1,5 @@
-#pragma once
-#include <chrono>
+#ifndef __TIME_H__
+#define __TIME_H__
 
 class Time
 {
@@ -23,3 +23,4 @@ public:
 
     Time &operator-=(const Time &time);
 };
+#endif // __TIME_H__

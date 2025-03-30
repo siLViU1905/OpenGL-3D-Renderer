@@ -3,6 +3,7 @@
 
 #include "Window/Window.h"
 //#include "Time/Clock.h" problems with std::chrono, not important now
+#include "Objects/Sprite.h"
 #include "Shaders/Shader.h"
 #include "Shaders/Texture.h"
 #include "Sounds/Sound.h"
