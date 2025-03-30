@@ -22,6 +22,13 @@ void Object::move(float offset)
 void Object::rotate(Angle phi)
 {
     rotation += phi.asDegrees();
+    
+    if (rotation.x > 360.f)
+        rotation.x -= 360.f;
+    if (rotation.y > 360.f)
+        rotation.y -= 360.f;
+    if (rotation.z > 360.f)
+        rotation.z -= 360.f;
 }
 
 void Object::rotate(Angle xPhi, Angle yPhi, Angle zPhi)
@@ -29,6 +36,13 @@ void Object::rotate(Angle xPhi, Angle yPhi, Angle zPhi)
     rotation.x += xPhi.asDegrees();
     rotation.y += yPhi.asDegrees();
     rotation.z += zPhi.asDegrees();
+
+    if (rotation.x > 360.f)
+        rotation.x -= 360.f;
+    if (rotation.y > 360.f)
+        rotation.y -= 360.f;
+    if (rotation.z > 360.f)
+        rotation.z -= 360.f;
 }
 
 void Object::render() const
@@ -78,8 +92,8 @@ Parallelepiped::Parallelepiped() : Object()
 Bound Parallelepiped::getBound() const
 {
     Bound bound;
-    bound.position =getPosition();
-    bound.size=size;
+    bound.position = getPosition();
+    bound.size = size;
     bound.rotation = getRotation();
     return bound;
 }
@@ -106,42 +120,65 @@ void Parallelepiped::render() const
     glBegin(GL_QUADS);
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
 
-     // Front face
-     glTexCoord2f(0.0f, 0.0f); glVertex3f(origin.x, origin.y, origin.z);
-     glTexCoord2f(1.0f, 0.0f); glVertex3f(origin.x + size.x, origin.y, origin.z);
-     glTexCoord2f(1.0f, 1.0f); glVertex3f(origin.x + size.x, origin.y - size.y, origin.z);
-     glTexCoord2f(0.0f, 1.0f); glVertex3f(origin.x, origin.y - size.y, origin.z);
- 
-     // Back face
-     glTexCoord2f(1.0f, 0.0f); glVertex3f(origin.x, origin.y, origin.z - size.z);
-     glTexCoord2f(0.0f, 0.0f); glVertex3f(origin.x + size.x, origin.y, origin.z - size.z);
-     glTexCoord2f(0.0f, 1.0f); glVertex3f(origin.x + size.x, origin.y - size.y, origin.z - size.z);
-     glTexCoord2f(1.0f, 1.0f); glVertex3f(origin.x, origin.y - size.y, origin.z - size.z);
- 
-     // Top face
-     glTexCoord2f(0.0f, 1.0f); glVertex3f(origin.x, origin.y, origin.z);
-     glTexCoord2f(0.0f, 0.0f); glVertex3f(origin.x, origin.y, origin.z - size.z);
-     glTexCoord2f(1.0f, 0.0f); glVertex3f(origin.x + size.x, origin.y, origin.z - size.z);
-     glTexCoord2f(1.0f, 1.0f); glVertex3f(origin.x + size.x, origin.y, origin.z);
- 
-     // Bottom face
-     glTexCoord2f(0.0f, 0.0f); glVertex3f(origin.x, origin.y - size.y, origin.z);
-     glTexCoord2f(1.0f, 0.0f); glVertex3f(origin.x + size.x, origin.y - size.y, origin.z);
-     glTexCoord2f(1.0f, 1.0f); glVertex3f(origin.x + size.x, origin.y - size.y, origin.z - size.z);
-     glTexCoord2f(0.0f, 1.0f); glVertex3f(origin.x, origin.y - size.y, origin.z - size.z);
- 
-     // Left face
-     glTexCoord2f(1.0f, 0.0f); glVertex3f(origin.x, origin.y, origin.z);
-     glTexCoord2f(0.0f, 0.0f); glVertex3f(origin.x, origin.y, origin.z - size.z);
-     glTexCoord2f(0.0f, 1.0f); glVertex3f(origin.x, origin.y - size.y, origin.z - size.z);
-     glTexCoord2f(1.0f, 1.0f); glVertex3f(origin.x, origin.y - size.y, origin.z);
- 
-     // Right face
-     glTexCoord2f(0.0f, 0.0f); glVertex3f(origin.x + size.x, origin.y, origin.z);
-     glTexCoord2f(1.0f, 0.0f); glVertex3f(origin.x + size.x, origin.y, origin.z - size.z);
-     glTexCoord2f(1.0f, 1.0f); glVertex3f(origin.x + size.x, origin.y - size.y, origin.z - size.z);
-     glTexCoord2f(0.0f, 1.0f); glVertex3f(origin.x + size.x, origin.y - size.y, origin.z);
- 
+    // Front face
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(origin.x, origin.y, origin.z);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(origin.x + size.x, origin.y, origin.z);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(origin.x + size.x, origin.y - size.y, origin.z);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(origin.x, origin.y - size.y, origin.z);
+
+    // Back face
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(origin.x, origin.y, origin.z - size.z);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(origin.x + size.x, origin.y, origin.z - size.z);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(origin.x + size.x, origin.y - size.y, origin.z - size.z);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(origin.x, origin.y - size.y, origin.z - size.z);
+
+    // Top face
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(origin.x, origin.y, origin.z);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(origin.x, origin.y, origin.z - size.z);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(origin.x + size.x, origin.y, origin.z - size.z);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(origin.x + size.x, origin.y, origin.z);
+
+    // Bottom face
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(origin.x, origin.y - size.y, origin.z);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(origin.x + size.x, origin.y - size.y, origin.z);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(origin.x + size.x, origin.y - size.y, origin.z - size.z);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(origin.x, origin.y - size.y, origin.z - size.z);
+
+    // Left face
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(origin.x, origin.y, origin.z);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(origin.x, origin.y, origin.z - size.z);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(origin.x, origin.y - size.y, origin.z - size.z);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(origin.x, origin.y - size.y, origin.z);
+
+    // Right face
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(origin.x + size.x, origin.y, origin.z);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(origin.x + size.x, origin.y, origin.z - size.z);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(origin.x + size.x, origin.y - size.y, origin.z - size.z);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(origin.x + size.x, origin.y - size.y, origin.z);
 
     glEnd();
 
@@ -150,7 +187,6 @@ void Parallelepiped::render() const
         glDisable(GL_TEXTURE_2D);
         Texture::unbind();
     }
-
 
     glPopMatrix();
 }
@@ -174,7 +210,7 @@ Bound Cube::getBound() const
 {
     Bound bound;
     bound.position = getPosition();
-    bound.size = vec3(size,size,size);
+    bound.size = vec3(size, size, size);
     bound.rotation = getRotation();
     return bound;
 }
@@ -289,8 +325,8 @@ Cone::Cone() : Object()
 Bound Cone::getBound() const
 {
     Bound bound;
-    bound.size = {radius,height,radius};
-    bound.position=getPosition() + vec3(-radius * 0.5f,0.f,radius * 0.5f);
+    bound.size = {radius, height, radius};
+    bound.position = getPosition() + vec3(-radius * 0.5f, 0.f, radius * 0.5f);
     return bound;
 }
 
@@ -315,14 +351,14 @@ void Cone::render() const
     }
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
-    glTexCoord2f(0.5f, 0.5f); 
+    glTexCoord2f(0.5f, 0.5f);
     glVertex3f(origin.x, origin.y - height, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
     {
         float xoff = cosf((float)i * DEG_TO_RAD);
         float zoff = sinf((float)i * DEG_TO_RAD);
-        float u = (xoff + 1.0f) * 0.5f; 
+        float u = (xoff + 1.0f) * 0.5f;
         float v = (zoff + 1.0f) * 0.5f;
         glTexCoord2f(u, v);
         glVertex3f(origin.x + xoff, origin.y - height, origin.z + zoff);
@@ -332,7 +368,7 @@ void Cone::render() const
 
     glBegin(GL_TRIANGLE_FAN);
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
-    glTexCoord2f(0.5f, 0.5f); 
+    glTexCoord2f(0.5f, 0.5f);
     glVertex3f(origin.x, origin.y, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
@@ -383,9 +419,9 @@ Cylinder::Cylinder() : Object()
 Bound Cylinder::getBound() const
 {
     Bound bound;
-    float maxRadius = std::max(baseRadius,topRadius);
-   bound.position = getPosition() + vec3(-maxRadius,0.f,maxRadius);
-   bound.size = vec3(maxRadius + maxRadius,height,maxRadius + maxRadius);
+    float maxRadius = std::max(baseRadius, topRadius);
+    bound.position = getPosition() + vec3(-maxRadius, 0.f, maxRadius);
+    bound.size = vec3(maxRadius + maxRadius, height, maxRadius + maxRadius);
     return bound;
 }
 
@@ -395,7 +431,6 @@ void Cylinder::render() const
 
     glTranslatef(movement.x, movement.y, movement.z);
 
-   
     float centerX = origin.x + (baseRadius + topRadius) / 4;
     float centerY = origin.y - height / 2;
     float centerZ = origin.z - (baseRadius + topRadius) / 4;
@@ -408,7 +443,6 @@ void Cylinder::render() const
 
     glTranslatef(-centerX, -centerY, -centerZ);
 
-    
     glBegin(GL_TRIANGLE_FAN);
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
@@ -423,7 +457,6 @@ void Cylinder::render() const
 
     glEnd();
 
-    
     glBegin(GL_TRIANGLE_FAN);
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
@@ -439,7 +472,6 @@ void Cylinder::render() const
 
     glEnd();
 
-    
     glBegin(GL_QUAD_STRIP);
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
@@ -449,13 +481,11 @@ void Cylinder::render() const
         float angle = (float)i * DEG_TO_RAD;
         float cosA = cosf(angle);
         float sinA = sinf(angle);
-        
-        
+
         float baseX = origin.x + cosA * baseRadius;
         float baseZ = origin.z + sinA * baseRadius;
         glVertex3f(baseX, origin.y - height, baseZ);
-        
-        
+
         float topX = origin.x + cosA * topRadius;
         float topZ = origin.z + sinA * topRadius;
         glVertex3f(topX, origin.y, topZ);
@@ -496,12 +526,9 @@ float Cylinder::getHeight() const
     return height;
 }
 
-
-Sphere::Sphere():radius(0.f),stacks(30),slices(30)
+Sphere::Sphere() : radius(0.f), stacks(30), slices(30)
 {
-    
 }
-
 
 void Sphere::setRadius(float radius)
 {
@@ -517,8 +544,8 @@ Bound Sphere::getBound() const
 {
     Bound bound;
     float doubleRadius = radius * 2.f;
-    bound.size = {doubleRadius,doubleRadius,doubleRadius};
-    bound.position = getPosition() + vec3(-radius,radius,radius);
+    bound.size = {doubleRadius, doubleRadius, doubleRadius};
+    bound.position = getPosition() + vec3(-radius, radius, radius);
     return bound;
 }
 
@@ -548,13 +575,13 @@ void Sphere::render() const
     glTranslatef(-(origin.x + radius / 2), -(origin.y - radius / 2), -(origin.z - radius / 2));
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
-    if(texture)
+    if (texture)
     {
         texture->bind(0);
         glEnable(GL_TEXTURE_2D);
     }
 
-    for(int i=0;i<stacks;++i)
+    for (int i = 0; i < stacks; ++i)
     {
         float lat0 = 3.14f * (-0.5 + (float)(i) / stacks);
         float z0 = std::sin(lat0);
@@ -565,7 +592,7 @@ void Sphere::render() const
         float zr1 = std::cos(lat1);
 
         glBegin(GL_QUAD_STRIP);
-        for(int j=0;j<=slices;++j)
+        for (int j = 0; j <= slices; ++j)
         {
             float lng = 2 * 3.14f * (float)j / slices;
             float x = std::cos(lng);
@@ -588,14 +615,11 @@ void Sphere::render() const
         glEnd();
     }
 
-    if(texture)
+    if (texture)
     {
         glDisable(GL_TEXTURE_2D);
         Texture::unbind();
     }
 
-
     glPopMatrix();
 }
-
-
