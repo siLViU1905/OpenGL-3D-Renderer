@@ -2,7 +2,7 @@
 #define __SGL_H__
 
 #include "Window/Window.h"
-//#include "Time/Clock.h" problems with std::chrono, not important now
+#include "Time/Clock.h"
 #include "Objects/Sprite.h"
 #include "Shaders/Shader.h"
 #include "Shaders/Texture.h"

@@ -3,7 +3,6 @@
 #include <vector>
 #include <cmath>
 #include <sstream>
-#include <thread>
 
 float dDistance(vec3 pos1, vec3 pos2)
 {
@@ -14,12 +13,12 @@ float dDistance(vec3 pos1, vec3 pos2)
     return std::sqrt(x + y + z);
 }
 
-
 int main()
 {
     Window window(1080, 720, "Scene");
 
-    window.setClearColor(Color{0.529f, 0.808f, 0.922f});
+    //window.setClearColor(Color{0.529f, 0.808f, 0.922f});
+    window.setClearColor(Color::Black);
 
     Camera camera(&window);
 
@@ -30,17 +29,6 @@ int main()
 
     if (!sGLErrors.good())
         return -1;
-
-
-    Cube cube;
-    cube.setOrigin({1.f,1.f,1.f});
-    cube.setSize(1.f);
-    cube.setColor(Color::Green);
-
-    Parallelepiped para;
-    para.setOrigin({7.f,5.f,6.f});
-    para.setSize({3,2,4});
-    para.setColor(Color::Black);
 
     Event event;
     while (window.isOpen())
@@ -67,12 +55,8 @@ int main()
         camera.update();
 
         window.clear();
-
         window.render(camera);
 
-        window.render(cube);
-
-        window.render(para);
 
         window.display();
     }
