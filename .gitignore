@@ -5,3 +5,6 @@ src/output/main.exe
 *.vsidx
 src/output/main.exe
 /build
+src/output/main.pdb
+src/output/main.exe
+src/build/Debug/main.o
