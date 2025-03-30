@@ -22,7 +22,7 @@ void Object::move(float offset)
 void Object::rotate(Angle phi)
 {
     rotation += phi.asDegrees();
-    
+
     if (rotation.x > 360.f)
         rotation.x -= 360.f;
     if (rotation.y > 360.f)
@@ -336,13 +336,13 @@ void Cone::render() const
 
     glTranslatef(movement.x, movement.y, movement.z);
 
-    glTranslatef(origin.x , origin.y - height / 2.f, origin.z );
+    glTranslatef(origin.x, origin.y - height / 2.f, origin.z);
 
     glRotatef(rotation.x, 1.f, 0.f, 0.f);
     glRotatef(rotation.y, 0.f, 1.f, 0.f);
     glRotatef(rotation.z, 0.f, 0.f, 1.f);
 
-    glTranslatef(-origin.x , -(origin.y - height / 2.f), -origin.z );
+    glTranslatef(-origin.x, -(origin.y - height / 2.f), -origin.z);
 
     if (texture)
     {
@@ -356,8 +356,10 @@ void Cone::render() const
 
     for (int i = 0; i <= 360; i += 12)
     {
-        float xoff = cosf((float)i * DEG_TO_RAD);
-        float zoff = sinf((float)i * DEG_TO_RAD);
+        float angle = (float)i * DEG_TO_RAD;
+        float xoff = std::cos(angle);
+        float zoff = std::sin(angle);
+
         float u = (xoff + 1.0f) * 0.5f;
         float v = (zoff + 1.0f) * 0.5f;
         glTexCoord2f(u, v);
@@ -373,8 +375,9 @@ void Cone::render() const
 
     for (int i = 0; i <= 360; i += 12)
     {
-        float xoff = cosf((float)i * DEG_TO_RAD);
-        float zoff = sinf((float)i * DEG_TO_RAD);
+        float angle = (float)i * DEG_TO_RAD;
+        float xoff = std::cos(angle);
+        float zoff = std::sin(angle);
         float u = (xoff + 1.0f) * 0.5f;
         float v = (zoff + 1.0f) * 0.5f;
         glTexCoord2f(u, v);
@@ -443,16 +446,33 @@ void Cylinder::render() const
 
     glTranslatef(-centerX, -centerY, -centerZ);
 
+    if (texture)
+    {
+        texture->bind(0);
+        glEnable(GL_TEXTURE_2D);
+    }
+
     glBegin(GL_TRIANGLE_FAN);
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
+
+    glTexCoord2f(0.5f, 0.5f);
+
     glVertex3f(origin.x, origin.y - height, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
     {
-        float xoff = cosf((float)i * DEG_TO_RAD) * baseRadius;
-        float zoff = sinf((float)i * DEG_TO_RAD) * baseRadius;
+        float angle = (float)i * DEG_TO_RAD;
+        float xoff = std::cos(angle) * baseRadius;
+        float zoff = std::sin(angle) * baseRadius;
         glVertex3f(origin.x + xoff, origin.y - height, origin.z + zoff);
+
+        if (texture)
+        {
+            float u = 0.5f + 0.5f * std::cos(angle);
+            float v = 0.5f + 0.5f * std::sin(angle);
+            glTexCoord2f(u, v);
+        }
     }
 
     glEnd();
@@ -461,13 +481,23 @@ void Cylinder::render() const
 
     glColor4f(color.rgb.x, color.rgb.y, color.rgb.z, color.alpha);
 
+    glTexCoord2f(0.5f, 0.5f);
+
     glVertex3f(origin.x, origin.y, origin.z);
 
     for (int i = 0; i <= 360; i += 12)
     {
-        float xoff = cosf((float)i * DEG_TO_RAD) * topRadius;
-        float zoff = sinf((float)i * DEG_TO_RAD) * topRadius;
+        float angle = (float)i * DEG_TO_RAD;
+        float xoff = cosf(angle) * topRadius;
+        float zoff = sinf(angle) * topRadius;
         glVertex3f(origin.x + xoff, origin.y, origin.z + zoff);
+
+        if (texture)
+        {
+            float u = 0.5f + 0.5f * std::cos(angle);
+            float v = 0.5f + 0.5f * std::sin(angle);
+            glTexCoord2f(u, v);
+        }
     }
 
     glEnd();
@@ -479,12 +509,18 @@ void Cylinder::render() const
     for (int i = 0; i <= 360; i += 12)
     {
         float angle = (float)i * DEG_TO_RAD;
-        float cosA = cosf(angle);
-        float sinA = sinf(angle);
+        float cosA = std::cos(angle);
+        float sinA = std::sin(angle);
+
+        if (texture)
+            glTexCoord2f((float)i / 360.f, 0.f);
 
         float baseX = origin.x + cosA * baseRadius;
         float baseZ = origin.z + sinA * baseRadius;
         glVertex3f(baseX, origin.y - height, baseZ);
+
+        if (texture)
+            glTexCoord2f((float)i / 360.f, 1.f);
 
         float topX = origin.x + cosA * topRadius;
         float topZ = origin.z + sinA * topRadius;
