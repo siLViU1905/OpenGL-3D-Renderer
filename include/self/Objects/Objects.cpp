@@ -336,13 +336,13 @@ void Cone::render() const
 
     glTranslatef(movement.x, movement.y, movement.z);
 
-    glTranslatef(origin.x + radius / 2, origin.y - radius / 2, origin.z - radius / 2);
+    glTranslatef(origin.x , origin.y - height / 2.f, origin.z );
 
     glRotatef(rotation.x, 1.f, 0.f, 0.f);
     glRotatef(rotation.y, 0.f, 1.f, 0.f);
     glRotatef(rotation.z, 0.f, 0.f, 1.f);
 
-    glTranslatef(-(origin.x + radius / 2), -(origin.y - radius / 2), -(origin.z - radius / 2));
+    glTranslatef(-origin.x , -(origin.y - height / 2.f), -origin.z );
 
     if (texture)
     {
@@ -431,9 +431,9 @@ void Cylinder::render() const
 
     glTranslatef(movement.x, movement.y, movement.z);
 
-    float centerX = origin.x + (baseRadius + topRadius) / 4;
-    float centerY = origin.y - height / 2;
-    float centerZ = origin.z - (baseRadius + topRadius) / 4;
+    float centerX = origin.x;
+    float centerY = origin.y - height / 2.f;
+    float centerZ = origin.z;
 
     glTranslatef(centerX, centerY, centerZ);
 
