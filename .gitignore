@@ -4,3 +4,4 @@ src/output/main.exe
 *.db-shm
 *.vsidx
 src/output/main.exe
+/build
