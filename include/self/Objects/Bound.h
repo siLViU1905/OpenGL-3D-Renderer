@@ -15,6 +15,8 @@ class Bound:public Renderable
 
   bool intersects(const Bound& bound) const;
 
+  bool contains(const Bound& bound) const;
+
   friend class Parallelepiped;
   friend class Cube;
   friend class Cone;
