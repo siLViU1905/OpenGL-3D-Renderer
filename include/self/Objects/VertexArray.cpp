@@ -16,6 +16,10 @@ VertexArray::VertexArray(vec3 *vertices, int count, Primitives primitive) : vert
         primitiveType = GL_POINT;
         break;
 
+        case Primitives::POINTS:
+        primitiveType = GL_POINTS;
+        break;
+
         case Primitives::LINE:
         primitiveType = GL_LINE;
         break;

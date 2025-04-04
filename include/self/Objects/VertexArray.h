@@ -8,6 +8,7 @@
 enum class Primitives
 {
   POINT,
+  POINTS,
   LINE,
   LINES,
   LINE_STRIP,
@@ -54,6 +55,8 @@ public:
     void setColor(Color color);
 
     Color getColor() const;
+
+    friend class Curve;
 };
 
 #endif // __VERTEXARRAY_H__

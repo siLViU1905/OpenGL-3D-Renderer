@@ -30,29 +30,29 @@ vec3 &operator-=(vec3 &v1, const vec3 &v2)
     return v1;
 }
 
-vec3 operator+(const vec3& v,float val)
+vec3 operator+(const vec3 &v, float val)
 {
-    return vec3(v.x+val,v.y+val,v.z+val);
+    return vec3(v.x + val, v.y + val, v.z + val);
 }
 
-vec3& operator+=(vec3& v,float val)
+vec3 &operator+=(vec3 &v, float val)
 {
-    v.x+=val;
-    v.y+=val;
-    v.z+=val;
+    v.x += val;
+    v.y += val;
+    v.z += val;
     return v;
 }
 
-vec3 operator-(const vec3& v,float val)
+vec3 operator-(const vec3 &v, float val)
 {
-    return vec3(v.x-val,v.y-val,v.z-val);
+    return vec3(v.x - val, v.y - val, v.z - val);
 }
 
-vec3& operator-=(vec3& v,float val)
+vec3 &operator-=(vec3 &v, float val)
 {
-    v.x-=val;
-    v.y-=val;
-    v.z-=val;
+    v.x -= val;
+    v.y -= val;
+    v.z -= val;
     return v;
 }
 
@@ -61,12 +61,12 @@ vec3 operator*(const vec3 &v, float val)
     return vec3(v.x * val, v.y * val, v.z * val);
 }
 
-vec3& operator*=(vec3 &v, float val)
+vec3 &operator*=(vec3 &v, float val)
 {
-   v.x*=val;
-   v.y*=val;
-   v.z*=val;
-   return v;
+    v.x *= val;
+    v.y *= val;
+    v.z *= val;
+    return v;
 }
 
 vec3 operator/(const vec3 &v, float val)
@@ -74,10 +74,10 @@ vec3 operator/(const vec3 &v, float val)
     return vec3(v.x / val, v.y / val, v.z / val);
 }
 
-vec3& operator/=(vec3 &v, float val)
+vec3 &operator/=(vec3 &v, float val)
 {
-   v.x/=val;
-   v.y/=val;
-   v.z/=val;
-   return v;
+    v.x /= val;
+    v.y /= val;
+    v.z /= val;
+    return v;
 }

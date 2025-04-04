@@ -43,6 +43,7 @@ add_executable(s3D_Renderer
     include/self/Time/Time.cpp
     include/self/Time/Clock.cpp
     include/self/Objects/VertexArray.cpp
+    include/self/Objects/Curve.cpp
 )
 
 set_target_properties(s3D_Renderer PROPERTIES OUTPUT_NAME "main")
