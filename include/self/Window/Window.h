@@ -7,6 +7,7 @@
 #include "Event.h"
 #include "../Objects/Sprite.h"
 #include "../Error/Error.h"
+#include "../Objects/VertexArray.h"
 
 class WindowHints
 {

@@ -10,5 +10,6 @@
 #include "Camera/Camera.h"
 #include "GPU/GPUInfo.h"
 #include "Logger/Logger.h"
+#include "Objects/VertexArray.h"
 
 #endif // __SGL_H__
