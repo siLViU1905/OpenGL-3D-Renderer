@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include "../Objects/vec3.h"
+#include "../Objects/Vectors/vec3.h"
 
 enum class SoundStatus
 {

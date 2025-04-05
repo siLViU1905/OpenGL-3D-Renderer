@@ -23,7 +23,10 @@ add_executable(s3D_Renderer
     include/GL/glad.c
     src/main.cpp
     include/self/Objects/Objects.cpp
-    include/self/Objects/vec3.cpp
+    include/self/Objects/Vectors/vec2.cpp
+    include/self/Objects/Vectors/vec3.cpp
+    include/self/Objects/Vectors/vec4.cpp
+    include/self/Objects/Matrices/mat2.cpp
     include/self/Objects/Angle.cpp
     include/self/Objects/Color.cpp
     include/self/Objects/Bound.cpp

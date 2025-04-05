@@ -1,6 +1,6 @@
 #ifndef __COLOR_H__
 #define __COLOR_H__
-#include "vec3.h"
+#include "Vectors/vec3.h"
 
 class Color
 {

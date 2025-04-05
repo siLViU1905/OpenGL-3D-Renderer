@@ -4,6 +4,7 @@
 #include "../Shaders/stb_image.h"
 #include <cmath>
 
+
 WindowHints::WindowHints() : hints(nullptr), values(nullptr), size(0) {}
 
 WindowHints::WindowHints(int *hints, int *values, int size)

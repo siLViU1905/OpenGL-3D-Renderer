@@ -6,11 +6,6 @@
 Camera::Camera(const Window *window) : yaw(0.f), pitch(0.f), speed(0.2f), window(window)
 {
     window->getRelativeCursorPosition(cx, cy);
-    forwardX = 0.f;
-    forwardY = 0.f;
-    forwardZ = 0.f;
-    rightX = 0.f;
-    rightZ = 0.f;
 }
 
 void Camera::setPosition(vec3 pos)
@@ -20,7 +15,7 @@ void Camera::setPosition(vec3 pos)
 
 vec3 Camera::getPosition() const
 {
-    return position;
+    return forward + right + position;
 }
 
 void Camera::setSpeed(float speed)
@@ -33,6 +28,11 @@ float Camera::getSpeed() const
     return speed;
 }
 
+vec3 Camera::looksAt() const
+{
+    return forward.getNormal();
+}
+
 void Camera::setMouseSensivity(float mouseSensivity)
 {
     this->mouseSensivity = mouseSensivity;
@@ -41,6 +41,16 @@ void Camera::setMouseSensivity(float mouseSensivity)
 float Camera::getMouseSensivity() const
 {
     return mouseSensivity;
+}
+
+float Camera::getYaw() const
+{
+    return yaw;
+}
+
+float Camera::getPitch() const
+{
+    return pitch;
 }
 
 void Camera::render() const
@@ -82,21 +92,21 @@ void Camera::update()
     if (yaw < 0.0f)
         yaw += 360.0f;
 
-    forwardX = std::sin(yaw * 3.14159f / 180.0f) * std::cos(pitch * 3.14159f / 180.0f);
-    forwardY = std::sin(pitch * 3.14159f / 180.0f);
-    forwardZ = -std::cos(yaw * 3.14159f / 180.0f) * std::cos(pitch * 3.14159f / 180.0f);
+    forward.x = std::sin(yaw * 3.14159f / 180.0f) * std::cos(pitch * 3.14159f / 180.0f);
+    forward.y = std::sin(pitch * 3.14159f / 180.0f);
+    forward.z = -std::cos(yaw * 3.14159f / 180.0f) * std::cos(pitch * 3.14159f / 180.0f);
 
-    rightX = std::sin((yaw + 90.f) * 3.14159f / 180.f);
-    rightZ = -std::cos((yaw + 90.f) * 3.14159f / 180.f);
+    right.x = std::sin((yaw + 90.f) * 3.14159f / 180.f);
+    right.z = -std::cos((yaw + 90.f) * 3.14159f / 180.f);
 
     if (window->isKeyPressed(GLFW_KEY_W))
-        move({forwardX * speed, 0.f, forwardZ * speed});
+        move(forward * speed);
     else if (window->isKeyPressed(GLFW_KEY_S))
-        move({-forwardX * speed, 0.f, -forwardZ * speed});
+        move(forward * -speed);
     if (window->isKeyPressed(GLFW_KEY_A))
-        move({-rightX * speed, 0.f, -rightZ * speed});
+        move(right * -speed);
     else if (window->isKeyPressed(GLFW_KEY_D))
-        move({rightX * speed, 0.f, rightZ * speed});
+        move(right * speed);
     if (window->isKeyPressed(GLFW_KEY_SPACE))
         move({0.f, speed, 0.f});
     else if (window->isKeyPressed(GLFW_KEY_LEFT_CONTROL))

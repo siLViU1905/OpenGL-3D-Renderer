@@ -1,6 +1,6 @@
 #ifndef __BOUND_H__
 #define __BOUND_H__
-#include "vec3.h"
+#include "Vectors/vec3.h"
 #include "Renderable.h"
 
 class Bound:public Renderable
