@@ -2,11 +2,11 @@
 #include "../../GL/glad.h"
 #include <iostream>
 
-Curve::Curve() : low(0.f), high(1.f), connections(10)
+Curve::Curve() : low(0.f), high(1.f), connections(30)
 {
 }
 
-Curve::Curve(vec3 *controlPoints, int count, float u1, float u2) : low(u1), high(u2), connections(10), ctrlPoints(count * 3)
+Curve::Curve(vec3 *controlPoints, int count, float u1, float u2) : low(u1), high(u2), connections(30), ctrlPoints(count * 3)
 {
     int j = 0;
     for (int i = 0; i < count; ++i)
@@ -18,7 +18,7 @@ Curve::Curve(vec3 *controlPoints, int count, float u1, float u2) : low(u1), high
     }
 }
 
-Curve::Curve(const VertexArray &vertices, float u1, float u2) : low(u1), high(u2), connections(10), ctrlPoints(vertices.vertices.size() * 3)
+Curve::Curve(const VertexArray &vertices, float u1, float u2) : low(u1), high(u2), connections(30), ctrlPoints(vertices.vertices.size() * 3)
 {
     int j = 0;
     for (int i = 0; i < vertices.vertices.size(); ++i)
@@ -122,7 +122,6 @@ void Curve::render() const
     for (int i = 0; i <= connections; ++i)
         glEvalCoord1f((float)i / (float)connections);
     glEnd();
-
 
     glDisable(GL_MAP1_VERTEX_3);
 

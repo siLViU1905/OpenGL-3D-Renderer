@@ -18,7 +18,7 @@ bool Texture::load(const char *filepath)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *data = stbi_load(filepath, &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(filepath, &width, &height, &nrChannels, 4);
     if (data)
     {
         GLenum format;

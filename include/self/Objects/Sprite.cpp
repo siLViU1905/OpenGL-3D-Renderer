@@ -10,8 +10,20 @@ vec3 Sprite::getSize() const
     return size;
 }
 
+void Sprite::setTransparency(bool transparency)
+{
+    this->transparency = transparency;
+}
+
 void Sprite::render() const
 {
+    if(transparency)
+    {
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+
     glPushMatrix();
 
     glTranslatef(movement.x, movement.y, movement.z);
@@ -31,7 +43,7 @@ void Sprite::render() const
     }
 
     glBegin(GL_QUADS);
-    glColor3f(1.f, 1.f, 1.f);
+    glColor4f(1.f, 1.f, 1.f,1.f);
 
     glTexCoord2f(0.f, 0.f);
     glVertex3f(origin.x, origin.y, origin.z);
@@ -54,4 +66,12 @@ void Sprite::render() const
     }
 
     glPopMatrix();
+
+    if(transparency)
+        glDisable(GL_BLEND);
+}
+
+Sprite::Sprite()
+{
+    transparency = false;
 }

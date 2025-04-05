@@ -7,8 +7,11 @@ class Sprite:public Object
     protected:
     void render() const override;
 
+    bool transparency;
+
     vec3 size;
    public:
+   Sprite();
 
 	using Object::getOrigin;
 	using Object::getPosition;
@@ -22,6 +25,8 @@ class Sprite:public Object
     void setSize(vec3 size);
 
     vec3 getSize() const;
+
+    void setTransparency(bool transparency);
 };
 
 #endif // __SPRITE_H__

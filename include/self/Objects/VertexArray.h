@@ -29,6 +29,9 @@ class VertexArray : public Renderable
     Color color;
 
     float width;
+
+    float pSize;
+
     void render() const override;
 
 public:
@@ -47,6 +50,10 @@ public:
     void setWidth(float lineWidth);
 
     float getWidth() const;
+
+    void setPointSize(float size);
+
+    float getPointSize() const;
 
     void setPrimitiveType(Primitives primitive);
 

@@ -1,11 +1,11 @@
 #include "VertexArray.h"
 #include "../../GL/glad.h"
 
-VertexArray::VertexArray():width(1.f)
+VertexArray::VertexArray():width(1.f),pSize(1.f)
 {
 }
 
-VertexArray::VertexArray(vec3 *vertices, int count, Primitives primitive) : vertices(count),primitiveType(0),width(1.f)
+VertexArray::VertexArray(vec3 *vertices, int count, Primitives primitive) : vertices(count),primitiveType(0),width(1.f), pSize(1.f)
 {
     for(int i = 0; i<count;++i)
      this->vertices[i] = vertices[i];
@@ -86,6 +86,16 @@ void VertexArray::setWidth(float lineWidth)
 float VertexArray::getWidth() const
 {
     return width;
+}
+
+void VertexArray::setPointSize(float size)
+{
+    pSize = size;
+}
+
+float VertexArray::getPointSize() const
+{
+    return pSize;
 }
 
 void VertexArray::setPrimitiveType(Primitives primitive)
@@ -184,6 +194,7 @@ Color VertexArray::getColor() const
 void VertexArray::render() const 
 {
     glLineWidth(width);
+    glPointSize(pSize);
     glBegin(primitiveType);
     
    glColor4f(color.rgb.x,color.rgb.y,color.rgb.z,color.alpha);

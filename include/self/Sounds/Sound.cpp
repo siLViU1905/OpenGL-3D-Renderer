@@ -52,11 +52,12 @@ bool Sound::isValid() const
     return m_isValid;
 }
 
-ALuint Sound::loadSoundFile(const std::string &filename)
+ALuint Sound::loadSoundFile(const char* filename)
 {
+    
     SF_INFO fileInfo;
     fileInfo.format = 0;
-    SNDFILE *file = sf_open(filename.c_str(), SFM_READ, &fileInfo);
+    SNDFILE *file = sf_open(filename, SFM_READ, &fileInfo);
 
     if (!file)
     throw std::runtime_error("Failed to open sound file");
@@ -97,12 +98,12 @@ ALuint Sound::loadSoundFile(const std::string &filename)
     return buffer;
 }
 
-bool Sound::loadFromFile(const std::string &filename)
+bool Sound::loadFromFile(const char* filename)
 {
     if (!m_isValid)
         return false;
     
-
+   this->filename = filename;
    
     stop();
 
@@ -218,10 +219,10 @@ float Sound::getPitch() const
     return pitch;
 }
 
-void Sound::setPosition(float x, float y, float z)
+void Sound::setPosition(vec3 position)
 {
     if (m_isValid)
-        alSource3f(source, AL_POSITION, x, y, z);
+        alSource3f(source, AL_POSITION, position.x,position.y, position.z);
     
 }
 
