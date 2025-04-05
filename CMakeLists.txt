@@ -27,6 +27,9 @@ add_executable(s3D_Renderer
     include/self/Objects/Vectors/vec3.cpp
     include/self/Objects/Vectors/vec4.cpp
     include/self/Objects/Matrices/mat2.cpp
+    include/self/Objects/Matrices/mat3.cpp
+    include/self/Objects/Transform/Transform2d.cpp
+    include/self/Objects/Transform/Transform3d.cpp
     include/self/Objects/Angle.cpp
     include/self/Objects/Color.cpp
     include/self/Objects/Bound.cpp
